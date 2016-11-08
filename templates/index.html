@@ -2,14 +2,15 @@
 	<head>
 		<title>MAGHEL working title</title>
 		
-        <!-- Bootstrap 4 CSS -->
+         Bootstrap 4 CSS
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
 
 	</head>
 	<body>
 
-		<!-- Navigation bar-->
-		<nav class="navbar navbar-static-top navbar-dark bg-inverse">
+		<!-- Navigation bar -->
+
+        <nav class="navbar navbar-static-top navbar-dark bg-inverse">
 			<div class="container">
 				<a class="navbar-brand" href="/">Working Title Maghel</a>
 				<ul class="nav navbar-nav">
@@ -34,7 +35,7 @@
         <!-- list of all movies and their scores  -->
         <h1> List of all movies and their scores </h1>
         {% for movie in movies %}
-        {{ name }} | {{ score }}
+        {{ movie.name }} | {{ movie.score }} <br \>
         {% endfor %}
 
 	</body>

@@ -12,8 +12,8 @@ def connect_db():
 @app.route('/')
 def index():
 	g.db = connect_db()
-	cur = g.db.execute('select score')
-	movies = [dict(score=row[0]) for row in cur.fetchall()]
+	cur = g.db.execute("select name, score from imdb_top_10000")
+	movies = [dict(name=row[0], score=row[1]) for row in cur.fetchall()]
 	g.db.close()
 	return render_template('index.html',movies=movies)
 
