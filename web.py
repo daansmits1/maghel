@@ -26,9 +26,10 @@ def search():
 @app.route('/results')
 def results():
 	search = request.values.get('search_terms')
-	heading = 'You searched for the movie titled ' + search
-
+	if search == "" or search.isspace():
+		heading = "No keywords entered" 
+	else:		
+		heading = 'You searched for the movie titled ' + search
 	return render_template('results.html', heading=heading)
-
 
 app.run(debug=True)
