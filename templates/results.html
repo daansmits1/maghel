@@ -29,13 +29,11 @@
         <!-- Jumbotron -->
         <div class="jumbotron">
             <div class="container">
-                <h1> Introduction </h1>
-                <p>This is a project to build a website which finally allows you to find a movie you and  your friends both haven't seen and will probably like.</p>
+                <h1> {{ heading }} </h1>
             </div>
         </div>
 
         <!-- list of all movies and their scores  -->
-        <h1> List of all movies and their scores </h1>
         {% for movie in movies %}
         {{ movie.title }} | {{ movie.rating }} <br \>
         {% endfor %}
