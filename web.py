@@ -27,16 +27,14 @@ def search():
 @app.route('/results')
 def results():
 # Get the results from the search
-	search = request.values.get('search_terms').title() #.title() capitalizes each first letter capital --> probably doesn't work forver\
+	search = request.values.get('search_terms') 
 	if search == "" or search.isspace():
 		heading = "No keywords entered" 
 	else:		
 		heading = 'You searched for the movie titled ' + search
 
-
-# Search in the database. Make this a separate function if needed (if too elaborate) --> import to this file
-	g.db = connect_db()
-	cur = g.db.execute("SELECT formatted_title, ratings FROM imdb_top_10000_cleaned WHERE formatted_title=?", (search,))
+# Search in the database. Make this a separate function if needed 	g.db = connect_db()
+	cur = g.db.execute("SELECT formatted_title, ratings FROM imdb_top_10000_cleaned WHERE formatted_title LIKE ?", ('{}%'.format(search),))
 	movies = [dict(title=row[0], rating=row[1]) for row in cur.fetchall()]
 	g.db.close()
 
