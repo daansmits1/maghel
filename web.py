@@ -13,6 +13,7 @@ def connect_db():
 
 @app.route('/')
 def index():
+# Get a full list of movies and the scores
 	g.db = connect_db()
 	cur = g.db.execute("SELECT formatted_title, ratings FROM imdb_top_10000_cleaned")
 	movies = [dict(title=row[0], rating=row[1]) for row in cur.fetchall()]
@@ -25,11 +26,20 @@ def search():
 
 @app.route('/results')
 def results():
-	search = request.values.get('search_terms')
+# Get the results from the search
+	search = request.values.get('search_terms').title() #.title() capitalizes each first letter capital --> probably doesn't work forver\
 	if search == "" or search.isspace():
 		heading = "No keywords entered" 
 	else:		
 		heading = 'You searched for the movie titled ' + search
-	return render_template('results.html', heading=heading)
+
+
+# Search in the database. Make this a separate function if needed (if too elaborate) --> import to this file
+	g.db = connect_db()
+	cur = g.db.execute("SELECT formatted_title, ratings FROM imdb_top_10000_cleaned WHERE formatted_title=?", (search,))
+	movies = [dict(title=row[0], rating=row[1]) for row in cur.fetchall()]
+	g.db.close()
+
+	return render_template('results.html', heading=heading, movies=movies)
 
 app.run(debug=True)
